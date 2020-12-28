@@ -1,4 +1,4 @@
-# Comparison of Current SOTA Online Portfolio Selection Algorithms
+# Comparison of Current Online Portfolio Selection Algorithms
 
 **ACM Research, Spring 2021**
 
