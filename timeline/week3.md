@@ -12,5 +12,5 @@
 
 ## Homework
 
-- Read up to Section 3.3 in the [OLPS survey paper](https://www.notion.so/Library-8d274490d57647b9b6ea393267c74152)
+- Read up to Section 3.3 in the [OLPS survey paper](OLPSSurvey.pdf)
 - Implement update rules for benchmark strategies
