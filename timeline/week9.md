@@ -1,7 +1,15 @@
-# Flexible Build Night
+# Week 9: Backtesting, Experimentation, and Comparison
 
-(Week 9)
+## General agenda items
+
+- Go over homework progress
 
 ## Main tasks
 
-Either continue on [Week 8](week8.md)'s activities or move on to [Week 10](week10.md)'s activities.
+- Determine portfolios to test, discuss where we're getting market data
+- Test all strategies on the portfolios using the already-coded framework program
+- Adjust parameters such as investment period, transaction costs (as well as other parameters per strategy)
+
+## Homework
+
+- Start collecting results and data for poster

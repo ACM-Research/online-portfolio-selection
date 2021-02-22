@@ -1,6 +1,4 @@
-# Poster Work & Presentation Practice
-
-(Week 10)
+# Week 10: Poster Work & Presentation Practice
 
 ## General agenda items
 

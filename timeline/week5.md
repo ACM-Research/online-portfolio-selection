@@ -1,4 +1,4 @@
-# Week 5: Follow-the-Loser Strategies II
+# Week 5: Follow-the-Loser Strategies I
 
 ## General agenda items
 
@@ -6,8 +6,9 @@
 
 ## Main tasks
 
-- Work through implementing update rules for FTL strategies in repo
+- Discuss FTL strategies (Anticor, passive-aggressive mean reversion, confidence-weighted mean reversion, online moving average reversion, robust median reversion) – presentation TBD
+- Discuss homework
 
 ## Homework
 
-- Continue implementing update rules for FTL strategies
+- Implement update strategies for benchmark strategies

@@ -1,4 +1,4 @@
-# Week 3: Follow-the-Winner Strategies II
+# Week 3: Baseline + Follow the Winner Strategies I
 
 ## General agenda items
 
@@ -6,8 +6,11 @@
 
 ## Main tasks
 
-- Work through implementing update rules for FTW strategies in repo
+- Discuss benchmark strategies (buy-and-hold, best-stock, constant rebalanced portfolios) – presentation TBD
+- Discuss FTW strategies (universal portfolios, exponential gradient, follow-the-leader, aggregating-type algorithms) – presentation TBD
+- Discuss homework
 
 ## Homework
 
-- Continue implementing update rules for FTW strategies
+- Read up to Section 3.3 in the [OLPS survey paper](https://www.notion.so/Library-8d274490d57647b9b6ea393267c74152)
+- Implement update rules for benchmark strategies

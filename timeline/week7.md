@@ -1,6 +1,4 @@
-# Pattern-Matching Strategies II
-
-(Week 7)
+# Week 7: Pattern-Matching Strategies I
 
 ## General agenda items
 
@@ -8,8 +6,11 @@
 
 ## Main tasks
 
-- Work through implementing rules for pattern-matching strategies in repo
+- Introduce how pattern-matching strategies work and how they generally are a combination of FTW and FTL strategies – presentation TBD
+- Discuss sample selection techniques: histogram-based, kernel-based, nearest neighbor-based, correlation-driven
+- Discuss portfolio optimization techniques: Kelly CGT, MVT
+- Discuss homework
 
 ## Homework
 
-- Continue implementing rules for FTL strategies
+- Implement update rules for pattern-matching strategies

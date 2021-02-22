@@ -1,16 +1,16 @@
-# Week 2: Baseline + Follow the Winner Strategies I
+# Week 2: Power Outage – Python and Reading Review
+
+**Due to the severe weather and widespread power outages, this week was intentonally light**
 
 ## General agenda items
 
-- Go over homework progress
+- Review readings
 
 ## Main tasks
 
-- Discuss benchmark strategies (buy-and-hold, best-stock, constant rebalanced portfolios) – presentation TBD
-- Discuss FTW strategies (universal portfolios, exponential gradient, follow-the-leader, aggregating-type algorithms) – presentation TBD
-- Discuss homework
+- Review Python basics
+- Play with spreadsheets
 
 ## Homework
 
-- Read up to Section 3.3 in the [OLPS survey paper](https://www.notion.so/Library-8d274490d57647b9b6ea393267c74152)
-- Implement update rules for benchmark strategies
+- Same as Week 1

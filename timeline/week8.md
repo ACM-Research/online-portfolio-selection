@@ -1,6 +1,4 @@
-# Backtesting, Experimentation, and Comparison
-
-(Week 8)
+# Week 8: Pattern-Matching Strategies II
 
 ## General agenda items
 
@@ -8,10 +6,8 @@
 
 ## Main tasks
 
-- Determine portfolios to test, discuss where we're getting market data
-- Test all strategies on the portfolios using the already-coded framework program
-- Adjust parameters such as investment period, transaction costs (as well as other parameters per strategy)
+- Work through implementing rules for pattern-matching strategies in repo
 
 ## Homework
 
-- Start collecting results and data for poster
+- Continue implementing rules for FTL strategies
