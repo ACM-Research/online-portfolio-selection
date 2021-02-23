@@ -10,4 +10,5 @@
 
 ## Homework
 
+- Implement update rules for benchmark strategies
 - Continue implementing update rules for FTW strategies

@@ -13,4 +13,3 @@
 ## Homework
 
 - Read up to Section 3.3 in the [OLPS survey paper](OLPSSurvey.pdf)
-- Implement update rules for benchmark strategies
