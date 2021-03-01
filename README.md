@@ -1,9 +1,6 @@
 <p align="center">
-  
-# Comparison of Current Online Portfolio Selection Algorithms
-
-**ACM Research, Spring 2021**
-
+<h1 align="center">Comparison of Current Online Portfolio Selection Algorithms</h1>
+<span align="center"><b>ACM Research, Spring 2021</b></span>
 </p>
 
 ## Background
