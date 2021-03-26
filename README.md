@@ -1,7 +1,6 @@
-<p align="center">
-<h1 align="center">Comparison of Current Online Portfolio Selection Algorithms</h1>
-<span align="center"><b>ACM Research, Spring 2021</b></span>
-</p>
+# Comparison of Current Online Portfolio Selection Algorithms</h1>
+
+**ACM Research, Spring 2021**
 
 ## Background
 
@@ -29,3 +28,12 @@ To run tests: `python -m pytest`
 To write tests:
 
 - Create a new file in `tests/` and follow standard Pytest conventions to write tests.
+
+## Contributors
+
+- [Tayisiya Chernenko](https://github.com/TayisiyaChernenko)
+- [Travis Dula](https://github.com/travisdula)
+- [Abby East](https://github.com/eastabby)
+- [Sayyant Rath](https://github.com/SayyantRath)
+- [Aditya Rathod](https://github.com/adityarathod) - Research Lead
+- [Dr. Gopal Gupta](https://utdallas.edu/~gupta) - Faculty Advisor
