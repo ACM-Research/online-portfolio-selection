@@ -41,8 +41,8 @@ class Strategy(ABC):
         Stores in cumulative wealth and returns the current cumulative return value.
         """
         cumulative_return = self.cumulative_wealth[-1] * current_return
-        self.cumulative_wealth = np.column_stack(
-            (self.cumulative_wealth, cumulative_return)
+        self.cumulative_wealth = np.append(
+            self.cumulative_wealth, cumulative_return
         )
         return cumulative_return
 

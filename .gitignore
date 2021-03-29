@@ -143,3 +143,6 @@ cython_debug/
 # PyCharm/IntelliJ annoyances
 **/.idea/workspace.xml
 **/.idea/tasks.xml
+
+# vscode annoyances
+.vscode/
