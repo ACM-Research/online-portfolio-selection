@@ -3,7 +3,6 @@ from ..datasources.datasource import DataSource
 import numpy as np
 
 class BAHStrategy(Strategy):
-    # TODO implement
     def update_weights(self, market_data: DataSource) -> None:
         if len(market_data.price_relatives.shape) == 1:
             prv = market_data.price_relatives
@@ -12,4 +11,3 @@ class BAHStrategy(Strategy):
         wealth = np.dot(prv, self.weights)
         self.weights = self.weights * prv
         self.weights = self.weights / sum(self.weights)
-        y = self.update_wealth(wealth)
