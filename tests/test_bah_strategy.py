@@ -45,9 +45,6 @@ class TestBAHStrategy:
         ds = fake_datasource['ds']
         ds.add_prices(fake_datasource['next_prices'])
         cumulative_return = strat.update(ds)
-        #TODO REMOVE
-        print(strat.cumulative_wealth)
-        print(strat.weights)
         assert np.array_equal(strat.weights, np.array([1/3, 1/3, 1/3]).T)
         assert isclose(cumulative_return, 2.)
         assert strat.cumulative_wealth.shape == (2, )
