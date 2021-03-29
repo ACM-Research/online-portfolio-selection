@@ -19,5 +19,3 @@ class BestStockStrategy(Strategy):
             self.weights[best_stock_index] = 0 
             best_stock_index = i
             self.weights[i] = 1
-
-        y = self.update_wealth(wealth)
