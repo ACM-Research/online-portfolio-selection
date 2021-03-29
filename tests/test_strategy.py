@@ -50,5 +50,5 @@ class TestStrategy:
         cumulative_return = strat.update(ds)
         assert np.array_equal(strat.weights, np.array([1/3, 1/3, 1/3]).T)
         assert isclose(cumulative_return, 1.017415905)
-        assert strat.cumulative_wealth.shape == (1, 2)
+        assert strat.cumulative_wealth.shape == (2, )
         assert strat.weights.shape == (3, )
