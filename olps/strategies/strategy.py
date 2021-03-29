@@ -44,7 +44,6 @@ class Strategy(ABC):
         self.cumulative_wealth = np.append(
             self.cumulative_wealth, cumulative_return
         )
-        print("cumu", self.cumulative_wealth)
         return cumulative_return
 
     def get_return(self, price_relatives: np.array) -> float:
