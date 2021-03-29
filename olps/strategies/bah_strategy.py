@@ -11,4 +11,3 @@ class BAHStrategy(Strategy):
         wealth = np.dot(prv, self.weights)
         self.weights = self.weights * prv
         self.weights = self.weights / sum(self.weights)
-        #y = self.update_wealth(wealth)
