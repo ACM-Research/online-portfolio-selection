@@ -2,6 +2,8 @@
 
 **ACM Research, Spring 2021**
 
+[![OLPS Package Tests](https://github.com/ACM-Research/online-portfolio-selection/actions/workflows/python-package.yml/badge.svg)](https://github.com/ACM-Research/online-portfolio-selection/actions/workflows/python-package.yml)
+
 ## Background
 
 Online portfolio selection is a fundamental problem in computational finance which determines how to allocate wealth across a variety of assets to maximize return. In this project, participants will implement and benchmark the performance of some current approaches to this problem (as described in the scientific literature) on a variety of stock portfolios.
