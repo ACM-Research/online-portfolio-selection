@@ -18,10 +18,10 @@ class TestCRPStrategy:
         """
         Create a basic pytest fixture that will just initialize a data source for testing purposes.
         """
-        initial_prices = np.array([10.00, 200.75, 15.60]).T
+        initial_prices = np.array([137.18, 1827.36, 262.01]).T
         return {
             'initial_prices': initial_prices,
-            'next_prices': np.array([13.40, 190.75, 16.09]).T,
+            'next_prices': np.array([136.76, 1893.07, 267.08]).T,
             'ds': DataSource(initial_prices=initial_prices)
         }
     def test_constructor(self, crp_strategy: CRPStrategy) -> None:
