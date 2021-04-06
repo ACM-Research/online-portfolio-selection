@@ -1,7 +1,7 @@
 import pytest
 from math import isclose
 from typing import *
-from olps.strategies.strategy.crp_strategy import CRPStrategy
+from olps.strategies.crp_strategy import CRPStrategy
 from olps.datasources.datasource import DataSource
 import numpy as np
 
