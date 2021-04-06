@@ -20,8 +20,7 @@ class TestBestStocktrategy:
         """
         Create a basic pytest fixture that will just initialize a data source for testing purposes.
         """
-        #initial_prices = np.array([137.18, 1827.36, 262.01]).T
-        #next_prices = np.array([136.76, 1893.07, 267.08]).T
+        
         initial_prices = np.array([137.18, 1827.36, 262.01])
         next_prices = np.array([136.76, 1893.07, 267.08])
         return {
