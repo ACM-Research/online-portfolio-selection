@@ -22,8 +22,8 @@ class TestBestStocktrategy:
         """
         #initial_prices = np.array([137.18, 1827.36, 262.01]).T
         #next_prices = np.array([136.76, 1893.07, 267.08]).T
-        initial_prices = np.array([1., 1., 1.]).T
-        next_prices = np.array([2., 2., 2.]).T
+        initial_prices = np.array([137.18, 1827.36, 262.01])
+        next_prices = np.array([136.76, 1893.07, 267.08])
         return {
             'initial_prices': initial_prices,
             'next_prices': next_prices,
@@ -37,7 +37,7 @@ class TestBestStocktrategy:
         strat = best_stock_strategy
         assert strat.weights.shape == (3, )
         assert strat.cumulative_wealth.shape == (1, )
-        assert np.array_equal(strat.weights, np.array([1/3, 1/3, 1/3]).T)
+        assert np.array_equal(strat.weights, np.array([1/3, 1/3, 1/3]))
 
     def test_update_with_price_relatives(self, best_stock_strategy: BestStockStrategy, fake_datasource: Dict[str, Union[np.array, DataSource]]) -> None:
         """
@@ -52,6 +52,7 @@ class TestBestStocktrategy:
         non_zero_occurences = np.count_nonzero(strat.weights)
 
         assert full_weight_occurences == non_zero_occurences
-        assert isclose(cumulative_return, 2.)
+        assert strat.weights[1] == 1
+        assert isclose(cumulative_return, 1.017415, rel_tol = 1E-5)
         assert strat.cumulative_wealth.shape == (2, )
         assert strat.weights.shape == (3, )

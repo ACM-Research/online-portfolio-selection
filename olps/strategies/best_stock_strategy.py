@@ -13,9 +13,10 @@ class BestStockStrategy(Strategy):
         best_stock_prv = 0
         best_stock_index = 0
         for i in range(len(prv)):
-          if prv[i]<= best_stock_prv:
+          if prv[i] <= best_stock_prv:
             self.weights[i] = 0
           else:
+            best_stock_prv = prv[i]
             self.weights[best_stock_index] = 0 
             best_stock_index = i
             self.weights[i] = 1
