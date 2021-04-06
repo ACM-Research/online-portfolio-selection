@@ -20,8 +20,8 @@ class TestExpGradStrategy:
         """
         Create a basic pytest fixture that will just initialize a data source for testing purposes.
         """
-        initial_prices = np.array([137.18, 1827.36, 262.01]).T
-        next_prices = np.array([136.76, 1893.07, 267.08]).T
+        initial_prices = np.array([137.18, 1827.36, 262.01])
+        next_prices = np.array([136.76, 1893.07, 267.08])
         return {
             'initial_prices': initial_prices,
             'next_prices': next_prices,
@@ -35,7 +35,7 @@ class TestExpGradStrategy:
         strat = exp_grad_strategy
         assert strat.weights.shape == (3, )
         assert strat.cumulative_wealth.shape == (1, )
-        assert np.array_equal(strat.weights, np.array([1/3, 1/3, 1/3]).T)
+        assert np.array_equal(strat.weights, np.array([1/3, 1/3, 1/3]))
 
     def test_update_with_price_relatives(self, exp_grad_strategy: ExpGradStrategy, fake_datasource: Dict[str, Union[np.array, DataSource]]) -> None:
         """

@@ -5,7 +5,6 @@ import numpy as np
 class ExpGradStrategy(Strategy):
 
     learning_rate = 0.1
-    # TODO implement
     def update_weights(self, market_data: DataSource) -> None:
         if len(market_data.price_relatives.shape) == 1:
             prv = market_data.price_relatives
