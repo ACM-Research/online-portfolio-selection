@@ -1,22 +1,22 @@
 import pytest
 from math import isclose
 from typing import *
-from olps.strategies.up_strategy import UPStrategy
-from olps.datasources.datasource import DataSource
+from olps.strategies.ac_strategy import ACStrategy
+from olps.datasources.ac_datasource import ACDataSource
 import numpy as np
 
 
-class TestUPStrategy:
+class TestACStrategy:
 
     @pytest.fixture
-    def bah_strategy(self) -> UPStrategy:
+    def bah_strategy(self) -> ACStrategy:
         """
-        Create a basic pytest fixture that will create a UPStrategy with three assets
+        Create a basic pytest fixture that will create a ACStrategy with three assets
         """
-        return UPStrategy(num_assets=3)
+        return ACStrategy(num_assets=3)
 
     @pytest.fixture
-    def fake_datasource(self) -> Dict[str, Union[np.array, DataSource]]:
+    def fake_datasource(self) -> Dict[str, Union[np.array, ACDataSource]]:
         """
         Create a basic pytest fixture that will just initialize a data source for testing purposes.
         """
@@ -25,10 +25,10 @@ class TestUPStrategy:
         return {
             'initial_prices': initial_prices,
             'next_prices': next_prices,
-            'ds': DataSource(initial_prices=initial_prices)
+            'ds': ACDataSource(initial_prices=initial_prices)
         }
 
-    def test_constructor(self, bah_strategy: UPStrategy) -> None:
+    def test_constructor(self, bah_strategy: ACStrategy) -> None:
         """
         Check that the constructor initializes the strategy object as expected.
         """
@@ -37,7 +37,7 @@ class TestUPStrategy:
         assert strat.cumulative_wealth.shape == (1, )
         assert np.array_equal(strat.weights, np.array([1/3, 1/3, 1/3]).T)
 
-    def test_update_with_price_relatives(self, bah_strategy: UPStrategy, fake_datasource: Dict[str, Union[np.array, DataSource]]) -> None:
+    def test_update_with_price_relatives(self, bah_strategy: ACStrategy, fake_datasource: Dict[str, Union[np.array, ACDataSource]]) -> None:
         """
         Check that update() works as expected in updating weights, period, and cumulative return.
         """
@@ -45,6 +45,12 @@ class TestUPStrategy:
         ds = fake_datasource['ds']
         ds.add_prices(fake_datasource['next_prices'])
         cumulative_return = strat.update(ds)
+        i = 0
+        for arr in np.array([[1, 1.5, 2], [.5, 2, 3], [1, 1, 2]]):
+            print(i, arr)
+            i += 1
+            ds.add_prices(arr)
+            print(strat.update(ds))
         assert np.array_equal(strat.weights, np.array([1/3, 1/3, 1/3]).T)
         assert isclose(cumulative_return, 2.)
         assert strat.cumulative_wealth.shape == (2, )
