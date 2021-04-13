@@ -1,22 +1,14 @@
 from .datasource import DataSource
 import numpy as np
+from typing import *
 
 class KernelBasedDataSource(DataSource):
-    # size of the windows
-    window 
+    window = 0
     # A 1D array of the index set for which the market windows are similar to the final window via Euclidean distance 
     sample_selection = None
 
     # modifying the constructors to include the window size
-    def __init__(self, initial_prices: np.array):
-        """
-        Initialize the data source with the price of all assets at the beginning of strategy execution.
-        """
-        self.prices = initial_prices
-        self.price_relatives = None
-        window = 2
-        self.sample_selection = None
-     def __init__(self, initial_prices: np.array, window : int):
+    def __init__(self, initial_prices: np.array, int window):
         """
         Initialize the data source with the price of all assets at the beginning of strategy execution.
         """

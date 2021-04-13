@@ -24,6 +24,8 @@ class KernelBasedLogStrategy(Strategy):
                 largestSummation = sum(logBX)
                 bestPortfilio = logBX
         self.weights = bestPortfolio
+        # sum to one 
+        self.weights = self.weights / sum(self.weights)
             
           
 
