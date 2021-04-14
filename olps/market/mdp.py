@@ -1,6 +1,6 @@
 from typing import *
 import pandas as pd
-import os
+from pandas.core.frame import DataFrame
 
 
 class MarketDataProvider:
@@ -11,13 +11,13 @@ class MarketDataProvider:
         self.stocks = df['ticker'].unique()
         self.data = df
 
-    def min_time(self):
+    def min_time(self) -> int:
         return self.data.index.min().timestamp() * 1e9
 
-    def max_time(self):
+    def max_time(self) -> int:
         return self.data.index.max().timestamp() * 1e9
 
-    def get_data(self, ns_timestamp: int, threshold=1e9):
+    def get_data(self, ns_timestamp: int, threshold=1e9) -> Tuple[int, DataFrame]:
         view = self.data.loc[
             (self.data.index.astype('int64') >= ns_timestamp) &
             (self.data.index.astype('int64') <= (ns_timestamp + threshold))
@@ -46,7 +46,6 @@ if __name__ == "__main__":
     while ts <= max_time:
         returned_max, prices = dp.get_data(ts, STEP)
         if prices is not None and len(prices) > 0:
-            os.system('clear')
             print(f'timestamp: {ts:.0f}')
             print(prices.to_numpy())
         if returned_max is None:
