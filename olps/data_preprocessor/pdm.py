@@ -1,8 +1,5 @@
-from typing import *
+from typing import List
 import pandas as pd
-import os
-import sys
-from pathlib import Path
 
 
 class PortfolioDataMerger:
@@ -32,9 +29,11 @@ class PortfolioDataMerger:
             # use a subset of the columns [timestamp, ask, and bid]
             usecols=[0, 1, 2]
         )
+        # Convert time column to datetime, then back into nanoseconds
         df['time'] = pd.to_datetime(
             df['time'], format=PortfolioDataMerger.DATE_FORMAT
         )
+        df['time'] = df['time'].astype('int64')
         df['ticker'] = ticker
         df.set_index('time', inplace=True)
         return df
