@@ -73,5 +73,20 @@ class TestKernelBasedDatasource:
         assert basic_datasource['ds'].similarity_set is None
         basic_datasource['ds'].sample_selection()
         assert basic_datasource['ds'].similarity_set is not None
-        assert basic_datasource['ds'].similarity_set.size == 2
-        assert basic_datasource['ds'].similarity_set.shape == (1, 2)
+        assert basic_datasource['ds'].similarity_set.size == 3
+        assert basic_datasource['ds'].similarity_set.shape == (1, 3)
+    
+    def test_drastic_jump_sample_selection(self, basic_datasource: KernelBasedDataSource) ->None:
+        """
+        Ensure sample selection filters out windows with very high differences by placing a drastically 
+        different price in between, which should remove 2 windows from consideration.
+        """
+        basic_datasource['ds'].add_prices(basic_datasource['next_prices'])
+        basic_datasource['ds'].add_prices(basic_datasource['very_diff_prices'])
+        basic_datasource['ds'].add_prices(basic_datasource['third_prices'])
+        basic_datasource['ds'].add_prices(basic_datasource['fourth_prices'])
+        basic_datasource['ds'].add_prices(basic_datasource['fifth_prices'])
+        assert basic_datasource['ds'].similarity_set is None
+        basic_datasource['ds'].sample_selection()
+        assert basic_datasource['ds'].similarity_set is not None
+        assert basic_datasource['ds'].similarity_set.size == 1
