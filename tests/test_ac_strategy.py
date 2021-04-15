@@ -45,13 +45,10 @@ class TestACStrategy:
         ds = fake_datasource['ds']
         ds.add_prices(fake_datasource['next_prices'])
         cumulative_return = strat.update(ds)
-        i = 0
-        for arr in np.array([[1, 1.5, 2], [.5, 2, 3], [1, 1, 2]]):
-            print(i, arr)
-            i += 1
-            ds.add_prices(arr)
-            print(strat.update(ds))
         assert np.array_equal(strat.weights, np.array([1/3, 1/3, 1/3]).T)
-        assert isclose(cumulative_return, 2.)
-        assert strat.cumulative_wealth.shape == (2, )
+        for arr in np.array([[1, 1.5, 2], [.5, 2, 3], [1, 1, 1]]):
+            ds.add_prices(arr)
+            cumulative_return = strat.update(ds)
+        assert isclose(cumulative_return, 1.4868526839459266)
+        assert strat.cumulative_wealth.shape == (5, )
         assert strat.weights.shape == (3, )
