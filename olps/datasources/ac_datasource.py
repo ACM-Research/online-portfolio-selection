@@ -14,7 +14,7 @@ class ACDataSource(DataSource):
         """
         Initialize the data source with the price of all assets at the beginning of strategy execution.
         """
-        DataSource.__init__(self, initial_prices=initial_prices)
+        super().__init__(initial_prices=initial_prices)
         self.log_price_relatives = None
         self.last_log_price_relatives = None
 
@@ -23,7 +23,7 @@ class ACDataSource(DataSource):
         Update the data source with new prices. This should only be done right before executing the
         strategy's update() method, as this will use the new prices to calculate PRVs. 
         """
-        DataSource.add_prices(self, prices=prices)
+        super().add_prices(prices=prices)
         self.last_log_price_relatives = self.log_price_relatives
         if len(self.price_relatives.shape) == 1:
             prv = self.price_relatives
