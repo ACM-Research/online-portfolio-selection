@@ -18,6 +18,8 @@ class KernelBasedDataSource(DataSource):
         self.window = window
 
     def sample_selection(self) -> None:
+        print("PRV: ")
+        print(self.price_relatives)
         similarity_set = np.array
         similarity_set = None
         length = self.price_relatives.shape[1]
@@ -38,7 +40,7 @@ class KernelBasedDataSource(DataSource):
                 # now compare that window matrix to the final window matrix via euclidean distance
                 distance = ((final_window - curr_window) ** 2).sum()
                 distance = math.sqrt(distance)
-                if distance < 1.5:
+                if distance < .5:
                     if similarity_set is None:
                         similarity_set = np.array(i)
                     else:

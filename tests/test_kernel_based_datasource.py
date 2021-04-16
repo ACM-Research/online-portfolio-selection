@@ -82,10 +82,11 @@ class TestKernelBasedDatasource:
         different price in between, which should remove 2 windows from consideration.
         """
         basic_datasource['ds'].add_prices(basic_datasource['next_prices'])
-        basic_datasource['ds'].add_prices(basic_datasource['very_diff_prices'])
         basic_datasource['ds'].add_prices(basic_datasource['third_prices'])
+        basic_datasource['ds'].add_prices(basic_datasource['very_diff_prices'])
         basic_datasource['ds'].add_prices(basic_datasource['fourth_prices'])
         basic_datasource['ds'].add_prices(basic_datasource['fifth_prices'])
+        basic_datasource['ds'].add_prices(basic_datasource['sixth_prices'])
         assert basic_datasource['ds'].similarity_set is None
         basic_datasource['ds'].sample_selection()
         assert basic_datasource['ds'].similarity_set is not None

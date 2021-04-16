@@ -27,8 +27,6 @@ class KernelBasedSemiLogStrategy(Strategy):
                     bestPortfolio = logBX
                 elif sum(logBX) > largestSummation:
                     largestSummation = sum(logBX)
-                    bestPortfilio = logBX
-            self.weights = bestPortfolio / sum(bestPortfilio)
-            print("weights:")
-            print(self.weights)
+                    bestPortfolio = logBX
+            self.weights = bestPortfolio / sum(bestPortfolio)
         

@@ -27,5 +27,5 @@ class KernelBasedLogStrategy(Strategy):
                     bestPortfolio = logBX
                 elif sum(logBX) > largestSummation:
                     largestSummation = sum(logBX)
-                    bestPortfilio = logBX
-            self.weights = bestPortfolio / sum(bestPortfilio)
+                    bestPortfolio = logBX
+            self.weights = bestPortfolio / sum(bestPortfolio)
