@@ -27,9 +27,11 @@ def main():
     while market.can_advance():
         market.advance()
     # Save the return
+    backtest_name = 'mar29test'  # make sure to change this for every new backtest!
     for strategy in market.strategies:
         name = type(strategy).__name__
-        np.savetxt(f'wealth-{name}.txt', strategy.cumulative_wealth)
+        np.savetxt(f'{backtest_name}-wealth-{name}.txt',
+                   strategy.cumulative_wealth)
 
 
 if __name__ == "__main__":
