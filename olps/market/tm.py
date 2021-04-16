@@ -7,13 +7,22 @@ from ..datasources.datasource import DataSource
 
 
 class TradingMarketStrategyInfo(TypedDict):
+    '''
+    An object to configure a TradingMarket.
+    '''
+    # An array of Strategies to run.
     strategies: List[Strategy]
+    # A function to instantiate a list of DataSources.
     datasource_factory: Callable[[np.array], List[DataSource]]
+    # An array of strategy frequencies (in nanoseconds).
     frequencies: List[int]
-    market_step_size: int
 
 
 class TradingMarket:
+    '''
+    Key abstraction that enables backtesting of strategies in an equities market.
+    '''
+
     def __init__(self, strategy_info: TradingMarketStrategyInfo, merged_data_path: str) -> None:
         # Initialize strategies
         self.strategies = strategy_info['strategies']
@@ -38,8 +47,6 @@ class TradingMarket:
         self.frequencies = strategy_info['frequencies']
         # Store start offset (which will be used to determine exact timestamp)
         self.offset = 0
-        # Store step size (the max amount to incremement the offset in any one call to `advance()`.)
-        self.step = strategy_info['market_step_size']
 
     def timestamp(self) -> int:
         '''
@@ -71,60 +78,47 @@ class TradingMarket:
             seen_assets.add(row['ticker'])
             idx -= 1
 
+    def execute_strategy(self, idx: int) -> None:
+        '''
+        Executes a strategy by the index of it inside `self.strategies`.
+        '''
+        ds = self.datasources[idx]
+        ds.add_prices(self.current_prices)
+        strat = self.strategies[idx]
+        strat.update(ds)
+        print('prices', self.current_prices)
+        print('cumulative wealth', strat.cumulative_wealth[-1])
+
+    def can_advance(self):
+        '''
+        Returns True if there are ticks left to iterate through.
+        '''
+        return (self.idx + 1) < len(self.data_provider.data)
+
     def advance(self):
         '''
-        Run one step in the market.
+        Run until the next thing in the market.
         Returns `True` if the market could run one step.
         '''
-        # If we're past the limit of our data, return
-        if self.idx > len(self.data_provider.data):
-            return ValueError('No data left to advance')
-        # Get price data
-        returned_max, prices = self.data_provider.get_data(
-            self.timestamp(), threshold=self.step
-        )
-        # Update prices if needed
-        updated = False
-        if prices is not None and len(prices) > 0:
-            updated = True
-            prices.apply(lambda row: self.__set_current_price(
-                row['ticker'], row['ask']
-            ), axis=1)
-        # Check if strategies need to be executed
+        # If we're past the limit of our data. throw an error
+        if not self.can_advance():
+            raise ValueError('No data left to advance')
+        self.idx += 1
+        # Get the next tick
+        next_tick = self.data_provider.data.iloc[self.idx]
+        # Check in the interval between the current tick and the next tick
+        # Check if we need to run a strategy within that interval & run it
+        interval_start = self.offset
+        interval_end = next_tick.name - self.start_timestamp
         for idx, freq in enumerate(self.frequencies):
-            if self.offset % freq == 0:
-                ds = self.datasources[idx]
-                ds.add_prices(self.current_prices)
-                strat = self.strategies[idx]
-                strat.update(ds)
-                print('===\nprices', self.current_prices)
-                print('cumulative wealth', strat.cumulative_wealth[-1])
-                # input()
-        # Update offset
-        self.offset += self.step
-        # if returned_max is None:
-        #     self.offset += self.step
-        # else:
-        #     self.offset = max(
-        #         self.timestamp() + self.offset,
-        #         returned_max
-        #     ) - self.timestamp()
-        return updated
-
-
-if __name__ == "__main__":
-    info: TradingMarketStrategyInfo = {
-        'strategies': [BAHStrategy(6)],
-        'datasource_factory': lambda initial_prices: [DataSource(initial_prices)],
-        'frequencies': [1e9],
-        'market_step_size': 1e7
-    }
-    tm = TradingMarket(
-        info, 'data/03-29-2021/merged/AAPL-BBY-DIS-TSLA-TWTR-UBER.csv'
-    )
-    advanced = True
-    while advanced:
-        updated = tm.advance()
-        # if updated:
-        # print(tm.asset_indices)
-        # print(tm.current_prices)
+            a = (interval_start // freq) * freq
+            while a < interval_end:
+                if interval_start <= a < interval_end:
+                    name = type(self.strategies[idx]).__name__
+                    print(
+                        f'===\nExecuting strategy {name} at {idx}, time {(self.timestamp() + a):.0f}, tick index {self.idx}')
+                    self.execute_strategy(idx)
+                a += freq
+        # Update the current price with the next tick
+        self.__set_current_price(next_tick['ticker'], next_tick['ask'])
+        self.offset = interval_end
