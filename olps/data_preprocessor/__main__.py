@@ -15,8 +15,7 @@ if __name__ == "__main__":
     # Get all files and stock names
     files = [x for x in folder.iterdir() if not x.is_dir()
              and not x.name.startswith('.')]
-    names = [str(x).replace('data/03-29-2021/', '').split('.')[0]
-             for x in files]
+    names = [x.name.split('.')[0] for x in files]
     # Merge portfolios
     merged = PortfolioDataMerger.merge_portfolio(files, names)
     # Find the merged folder and create it if it doesn't exist
@@ -28,7 +27,9 @@ if __name__ == "__main__":
         print('Creating folder to store merged CSV...')
         merged_folder.mkdir()
     # Save the CSV in the merged folder
-    merged_filename = merged_folder.joinpath(f'{"-".join(sorted(names))}.csv')
+    unique_tickers = set(names)
+    merged_filename = merged_folder.joinpath(
+        f'{"-".join(sorted(unique_tickers))}.csv')
     print(f'Saving merged CSV at {merged_filename}...')
     merged.to_csv(merged_filename)
     # Print out stats on memory usage and data points
