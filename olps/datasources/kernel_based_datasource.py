@@ -18,8 +18,6 @@ class KernelBasedDataSource(DataSource):
         self.window = window
 
     def sample_selection(self) -> None:
-        print("PRV: ")
-        print(self.price_relatives)
         similarity_set = np.array
         similarity_set = None
         length = self.price_relatives.shape[1]
