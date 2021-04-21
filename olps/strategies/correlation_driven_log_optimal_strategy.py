@@ -15,7 +15,6 @@ class CorrelationDrivenLogStrategy(Strategy):
         if similarity_set is None:
             pass
         elif (similarity_set_size == 1):
-            
             # Compute the weights based off of the single similar PRC
             i = similarity_set[0]
             currPRV = market_data.price_relatives[:, i]
@@ -23,23 +22,18 @@ class CorrelationDrivenLogStrategy(Strategy):
             for k in range(logBX.size):
                 logBX[k] = math.log10(logBX[k])
             self.weights = logBX / sum(logBX)
-        
         # Handling more than two windows
         else:
-
             largestSummation = None
             bestPortfolio = None
             winningI = -1
-
             for j in range(similarity_set_size):
             # getting the prvs which correspond to the set of index from sample selection
                 i = similarity_set[j]
                 currPRV = market_data.price_relatives[:, i]
                 logBX =  self.weights * currPRV
-                
                 for k in range(logBX.size):
                     logBX[k] = math.log10(logBX[k])
-
             if sum(logBX) > largestSummation:
                 largestSummation = sum(logBX)
                 bestPortfolio = logBX
