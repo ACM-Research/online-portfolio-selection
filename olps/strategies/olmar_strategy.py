@@ -1,7 +1,6 @@
 from .strategy import Strategy
 from ..datasources.olmar_datasource import OLMARDataSource
 import numpy as np
-import cvxpy as cp
 
 class OLMARStrategy(Strategy):
 
