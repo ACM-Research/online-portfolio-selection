@@ -24,15 +24,15 @@ class CorrelationDrivenDataSource(DataSource):
     def sample_selection(self) -> None:
 
         sample_set = None
-        len = self.price_relatives.shape[1]
-        t = len - 1
-        if len > self.window + 1:
+        length = self.price_relatives.T.shape[0]
+        t = length - 1
+        if length > self.window + 1:
         # initialize our final window
             final_window = np.array(self.price_relatives[:, t - self.window + 1]).T
-            for i in range(t - self.window + 2, len):
+            for i in range(t - self.window + 2, length):
                 prv = np.array(self.price_relatives[:, i]).T
                 final_window = np.column_stack((final_window, prv))
-            for i in range(self.window + 1, len):
+            for i in range(self.window + 1, length):
             # create window matrix for the current initial index
                 curr_window = np.array(self.price_relatives[:, i - self.window]).T
                 for j in range(i - self.window + 1, i):

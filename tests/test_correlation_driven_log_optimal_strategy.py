@@ -38,6 +38,19 @@ class TestCorrelationDrivenLogStrategy:
         assert strat.cumulative_wealth.shape == (1, )
         assert np.array_equal(strat.weights, np.array([1/3, 1/3, 1/3]).T)
 
+    def test_window_too_big(self, correlation_driven_log_optimal_strategy: CorrelationDrivenLogStrategy, cd_datasource: Dict[str, Union[np.array, CorrelationDrivenDataSource]]):
+        """
+        Check that the strategy is able to handle a no valid window edge case.
+        """
+        strat = correlation_driven_log_optimal_strategy
+        ds = cd_datasource['ds']
+        ds.add_prices(cd_datasource['next_prices'])
+        cumulative_return = strat.update(ds)
+        assert isclose(strat.weights[0], 0.3333333333333333)
+        assert isclose(strat.weights[1], 0.3333333333333333)
+        assert isclose(strat.weights[2], 0.3333333333333333)
+        assert isclose(cumulative_return, 1.017415904916393)
+    
     def test_update_with_price_relatives(self, correlation_driven_log_optimal_strategy: CorrelationDrivenLogStrategy, cd_datasource: Dict[str, Union[np.array, CorrelationDrivenDataSource]]) -> None:
         """
         Check that update() works as expected in updating weights, period, and cumulative return.
