@@ -5,10 +5,7 @@ import numpy as np
 class KernelBasedLogStrategy(Strategy):
      
     def update_weights(self, market_data: KernelBasedDataSource) -> None:
-        try:
-            market_data.sample_selection()
-        except:
-            return
+        market_data.sample_selection()
         similarity_set = market_data.similarity_set
         # if there are no windows close enough to the final window or the window size was too large, use CRP update
         if similarity_set is None:
