@@ -12,8 +12,8 @@ class CRGVisualizer(Visualizer):
         Plots the strategies' cumulative return to the output file in a single graph
         """
         for strategy in strategies:
-            plt.plot(strategy.cumulative_wealth, label=f'{strategy.__class__}')
-        #plt.legend()
+            plt.plot(strategy.cumulative_wealth, label=f'{strategy.__class__}'[:-2].split('.')[-1])
+        plt.legend()
         plt.ylabel('Cumulative return')
         plt.xlabel('Ticks')
         plt.title('Cumulative return of different algorithms')
