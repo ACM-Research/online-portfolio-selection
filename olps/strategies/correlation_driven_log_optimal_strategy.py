@@ -6,11 +6,13 @@ import numpy as np
 class CorrelationDrivenLogStrategy(Strategy):
      
     def update_weights(self, market_data: CorrelationDrivenDataSource) -> None:
-        
-        market_data.sample_selection()
+        try:
+            market_data.sample_selection()
+        except:
+            return
         similarity_set = market_data.similarity_set
         similarity_set_size = market_data.similarity_set_size
-        
+        print("Past the first try")
         # if there are no windows close enough to the final window or the window size was too large, use CRP update
         if similarity_set is None:
             pass
@@ -29,7 +31,7 @@ class CorrelationDrivenLogStrategy(Strategy):
             winningI = -1
             for j in range(similarity_set_size):
             # getting the prvs which correspond to the set of index from sample selection
-                i = similarity_set[j]
+                i = similarity_set[0,j]
                 currPRV = market_data.price_relatives[:, i]
                 logBX =  self.weights * currPRV
                 for k in range(logBX.size):
