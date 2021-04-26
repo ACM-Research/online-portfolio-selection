@@ -27,6 +27,11 @@ class TestCorrelationDrivenLogStrategy:
             'fifth_prices': np.array([139.75, 1828.03, 262.14]).T,
             'sixth_prices': np.array([139.20, 1828.90, 260.37]).T,
             'very_diff_prices': np.array([69.825, 913.70, 477.036]).T,
+            'next_pricesv2': np.array([136.719, 1825.43, 262.01]).T,
+            'third_pricesv2': np.array([139.167, 1839.97, 265.054]).T,
+            'fourth_pricesv2': np.array([140.137, 1841.22, 264.874]).T,
+            'fifth_pricesv2': np.array([142.689, 1841.85, 261.996]).T,
+            'sixth_pricesv2': np.array([142.127, 1842.73, 260.227]).T,
             'ds': CorrelationDrivenDataSource(initial_prices=initial_prices, window = 2)
         }
     def test_constructor(self, correlation_driven_log_optimal_strategy: CorrelationDrivenLogStrategy) -> None:
@@ -67,5 +72,24 @@ class TestCorrelationDrivenLogStrategy:
         assert isclose(strat.weights[1], 0.332156713298505)
         assert isclose(strat.weights[2], 0.33434989254834846)
         assert isclose(cumulative_return, 0.9965960685646182)
+        assert strat.cumulative_wealth.shape == (2, )
+        assert strat.weights.shape == (3, )
+    
+    def test_update_with_price_relatives_window_greater_than_one(self, correlation_driven_log_optimal_strategy: CorrelationDrivenLogStrategy, cd_datasource: Dict[str, Union[np.array, CorrelationDrivenDataSource]]) -> None:
+        """
+        Check that update() works as expected in updating weights, period, and cumulative return.
+        """
+        strat = correlation_driven_log_optimal_strategy
+        ds = cd_datasource['ds']
+        ds.add_prices(cd_datasource['next_pricesv2'])
+        ds.add_prices(cd_datasource['third_pricesv2'])
+        ds.add_prices(cd_datasource['fourth_pricesv2'])
+        ds.add_prices(cd_datasource['fifth_pricesv2'])
+        ds.add_prices(cd_datasource['sixth_pricesv2'])
+        cumulative_return = strat.update(ds)
+        assert isclose(strat.weights[0], 0.32860184014052407)
+        assert isclose(strat.weights[1], 0.3339859057868103)
+        assert isclose(strat.weights[2], 0.33741225407266556)
+        assert isclose(cumulative_return, 0.9965957110790139)
         assert strat.cumulative_wealth.shape == (2, )
         assert strat.weights.shape == (3, )

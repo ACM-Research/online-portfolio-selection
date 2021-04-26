@@ -23,6 +23,8 @@ class CorrelationDrivenDataSource(DataSource):
 
     def sample_selection(self) -> None:
 
+        self.similarity_set_size = 0
+
         sample_set = None
         length = self.price_relatives.T.shape[0]
         t = length - 1
@@ -39,23 +41,24 @@ class CorrelationDrivenDataSource(DataSource):
                     prv = np.array(self.price_relatives[:, j]).T
                     curr_window = np.column_stack((curr_window, prv))
 
-            # now compute correlation coefficient using CORN Formula
-            vectorized_curr_window = np.empty(0)
-            vectorized_final_window = np.empty(0)
-            for item in curr_window:
-                vectorized_curr_window = np.append(vectorized_curr_window, item)
-            for item in final_window:
-                vectorized_final_window = np.append(vectorized_final_window, item)
-            cov = sum((vectorized_curr_window - np.mean(vectorized_curr_window)) * (vectorized_final_window - np.mean(vectorized_final_window)))
-            sx = np.sqrt(sum((vectorized_curr_window - np.mean(vectorized_curr_window)) ** 2.0))
-            sy = np.sqrt(sum((vectorized_final_window - np.mean(vectorized_final_window)) ** 2.0))
-            corr = cov / (sx * sy)
+                # now compute correlation coefficient using CORN Formula
+                vectorized_curr_window = np.empty(0)
+                vectorized_final_window = np.empty(0)
+                for item in curr_window:
+                    vectorized_curr_window = np.append(vectorized_curr_window, item)
+                for item in final_window:
+                    vectorized_final_window = np.append(vectorized_final_window, item)
+                cov = sum((vectorized_curr_window - np.mean(vectorized_curr_window)) * (vectorized_final_window - np.mean(vectorized_final_window)))
+                sx = np.sqrt(sum((vectorized_curr_window - np.mean(vectorized_curr_window)) ** 2.0))
+                sy = np.sqrt(sum((vectorized_final_window - np.mean(vectorized_final_window)) ** 2.0))
+                corr = cov / (sx * sy)
+                print("Correlation is: ", corr)
 
-            # Compare against rho
-            if corr >= self.rho:
-                self.similarity_set_size += 1
-                if sample_set is None:
-                    sample_set = [i]
-                else:
-                    sample_set = np.append(sample_set, i)
+                # Compare against rho
+                if corr >= self.rho:
+                    self.similarity_set_size += 1
+                    if sample_set is None:
+                        sample_set = [i]
+                    else:
+                        sample_set = np.append(sample_set, i)
         self.similarity_set = sample_set

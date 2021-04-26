@@ -2,7 +2,6 @@ from olps.market import TradingMarket, TradingMarketStrategyInfo
 from olps.strategies import BAHStrategy
 from olps.datasources import DataSource
 from olps.util import minute
-import ffmpeg
 import numpy as np
 from pathlib import Path
 
