@@ -18,11 +18,10 @@ class KernelBasedDataSource(DataSource):
         self.window = window
 
     def sample_selection(self) -> None:
-        if self.prices.shape[1] > 2:
+        if self.prices.shape[1] < 2:
             return
         similarity_set = np.array
         similarity_set = None
-        print(self.price_relatives)
         length = self.price_relatives.T.shape[0]
         t = length - 1
         if length > self.window + 1:

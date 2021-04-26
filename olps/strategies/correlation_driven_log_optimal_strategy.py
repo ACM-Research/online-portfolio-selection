@@ -31,7 +31,7 @@ class CorrelationDrivenLogStrategy(Strategy):
             winningI = -1
             for j in range(similarity_set_size):
             # getting the prvs which correspond to the set of index from sample selection
-                i = similarity_set[j]
+                i = similarity_set[0,j]
                 currPRV = market_data.price_relatives[:, i]
                 logBX =  self.weights * currPRV
                 for k in range(logBX.size):
