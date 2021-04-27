@@ -52,7 +52,6 @@ class CorrelationDrivenDataSource(DataSource):
                 sx = np.sqrt(sum((vectorized_curr_window - np.mean(vectorized_curr_window)) ** 2.0))
                 sy = np.sqrt(sum((vectorized_final_window - np.mean(vectorized_final_window)) ** 2.0))
                 corr = cov / (sx * sy)
-                print("Correlation is: ", corr)
 
                 # Compare against rho
                 if corr >= self.rho:
