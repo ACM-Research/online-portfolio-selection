@@ -1,15 +1,13 @@
 import os, json
-from olps.market import TradingMarket, TradingMarketStrategyInfo
+from olps.market import TradingMarket, TradingMarketStrategyInfo, MarketDataProvider
 from olps.strategies import Strategy
 from olps.strategies import BAHStrategy
 from olps.strategies import BestStockStrategy
 from olps.datasources import DataSource
 from olps.util import minute, hour
-from olps.visualization.brg_visualizer_animated import BarCRGVisualizer
+from olps.visualization.brg_visualizer import BarCRGVisualizer
 import numpy as np
 from pathlib import Path
-
-# Use this as a template to backtest strategies!
 
 
 def main():
@@ -22,23 +20,19 @@ def main():
         'frequencies': [hour(2), hour(2)],
     }
 
-    # Define a data directory
     data_dir = Path('.') / 'data'
-    # Define the path. You should change this depending on what portfolio you're backtesting.
     path = data_dir / 'mar29toapril1' / 'merged' / 'AAPL-BBY-DIS-TSLA-TWTR-UBER.csv'
-    # Create a market object with the info and path.
     market = TradingMarket(info, path)
-    # Main loop: run through all the ticks
+    asset_names = market.data_provider.assets
     while market.can_advance():
         market.advance()
-    # Save the return
-    backtest_name = 'mar29toapril1'  # make sure to change this for every new backtest!
+    backtest_name = 'mar29toapril1'
     for strategy in market.strategies:
         name = type(strategy).__name__
         np.savetxt(f'{backtest_name}-wealth-{name}.txt',
                    strategy.cumulative_wealth)
 
-    BarCRGVisualizer.visualize('out.gif', market.strategies)
+    BarCRGVisualizer.visualize('out.png', market.strategies, asset_names)
 
 
 
