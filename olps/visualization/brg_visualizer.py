@@ -3,7 +3,6 @@ import matplotlib.animation as ani
 import numpy as np
 from olps.strategies.strategy import Strategy
 from .visualizer import Visualizer
-from olps.market.mdp import MarketDataProvider
 
 class BarCRGVisualizer(Visualizer):
     """
@@ -19,8 +18,8 @@ class BarCRGVisualizer(Visualizer):
         colors = ['r', 'b', 'g', 'y', 'c', 'm', 'k', 'tab:blue', 'tab:orange', 'tab:green', 'tab:red', 'tab:purple', 'tab:brown', 'tab:pink', 'tab:gray', 'tab:olive', 'tab:cyan']
         
         N = len(strategies)
-        ind = np.arange(N)  # the x locations for the groups
-        width = 0.2 / len(strategies)       # the width of the bars
+        ind = np.arange(N)
+        width = 0.2 / len(strategies)
 
         fig = plt.figure()
         ax = fig.add_subplot(111)
