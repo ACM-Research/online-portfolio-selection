@@ -18,11 +18,15 @@ class AnimatedCRGVisualizer(Visualizer):
         colors = 'bgrcmyk'
         fig = plt.figure()
         crs = np.array([strat.cumulative_wealth for strat in strategies])
+        strategy_names = [
+                f'{strategy.__class__}'[:-2].split('.')[-1]
+                for strategy in strategies]
         def animate(i: int):
             cols = crs[..., :i]
             # manually defining colors keeps them consistent
-            for col, color in zip(cols, colors):
-                plt.plot([j for j in range(len(col))], col, color=color)
+            for name, col, color in zip(strategy_names, cols, colors):
+                plt.plot([j for j in range(len(col))], col, color=color, label=name)
+            plt.legend(strategy_names)
 
         animator = ani.FuncAnimation(fig, animate, frames=60)
         animator.save(outputfile)
