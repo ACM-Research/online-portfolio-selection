@@ -1,4 +1,4 @@
 # Auto detect text files and perform LF normalization
 * text=auto
 data/mar22toapril1/merged/AAPL-BBY-DIS-TSLA-TWTR-UBER.csv filter=lfs diff=lfs merge=lfs -text
-*.csv filter=lfs diff=lfs merge=lfs -text
+data/mar17to24_2020/merged/AAPL-AMZN-OXY-PEP-SPY-VXX.csv filter=lfs diff=lfs merge=lfs -text
