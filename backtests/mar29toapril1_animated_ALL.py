@@ -14,7 +14,7 @@ from olps.datasources import CorrelationDrivenDataSource
 from olps.datasources import KernelBasedDataSource
 from olps.datasources import OLMARDataSource
 from olps.visualization.brg_visualizer import BarCRGVisualizer
-from olps.visualization.crg_visualizer import CRGVisualizer
+from olps.visualization.animated_crg_visualizer import AnimatedCRGVisualizer
 from olps.util import minute, hour
 import numpy as np
 from pathlib import Path
@@ -34,13 +34,12 @@ def main():
         DataSource(initial_prices), OLMARDataSource(initial_prices), KernelBasedDataSource(initial_prices, window = 4), 
         KernelBasedDataSource(initial_prices, window= 4)],
         # frequencies: use the olps.util module to define frequencies!
-        'frequencies': [minute(10), minute(10), minute(10), minute(10), minute(10), minute(10), 
-        minute(10), minute(10), minute(10)],
+        'frequencies': [hour(1), hour(1), hour(1), hour(1), hour(1), hour(1), hour(1), hour(1), hour(1)],
     }
     # Define a data directory
     data_dir = Path('.') / 'data'
     # Define the path. You should change this depending on what portfolio you're backtesting.
-    path = data_dir / 'mar20_2020' / 'merged' / 'AAPL-AMZN-OXY-PEP-SPY-VXX.csv'
+    path = data_dir / 'mar29toapril1' / 'merged' / 'AAPL-BBY-DIS-TSLA-TWTR-UBER.csv'
     # Create a market object with the info and path.
     market = TradingMarket(info, path)
     asset_names = market.data_provider.assets
@@ -48,13 +47,15 @@ def main():
     while market.can_advance():
         market.advance()
     # Save the return
-    backtest_name = 'mar20_2020_testV1'  # make sure to change this for every new backtest!
+    backtest_name = 'mar29apr1_ALL_testV1'  # make sure to change this for every new backtest!
     for strategy in market.strategies:
         name = type(strategy).__name__
         np.savetxt(f'{backtest_name}-wealth-{name}.txt',
                    strategy.cumulative_wealth)
 
-    BarCRGVisualizer.visualize('bar_out_mar20_2020.png', market.strategies, asset_names)
+    BarCRGVisualizer.visualize('bar_out_mar29apr1.png', market.strategies, asset_names)
+    AnimatedCRGVisualizer.visualize('out.gif', market.strategies)
+
 
 if __name__ == "__main__":
     main()
