@@ -21,6 +21,10 @@ class AnimatedCRGVisualizer(Visualizer):
         strategy_names = [
                 f'{strategy.__class__}'[:-2].split('.')[-1]
                 for strategy in strategies]
+
+        plt.xlim((0, len(crs[0])))
+        plt.ylim((.9, 1.1))
+
         def animate(i: int):
             cols = crs[..., :i]
             # manually defining colors keeps them consistent
