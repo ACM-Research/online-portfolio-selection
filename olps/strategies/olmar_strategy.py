@@ -33,6 +33,9 @@ class OLMARStrategy(Strategy):
             if (innerLambda > 0):
                 lg = innerLambda
 
-            weights = self.weights + lg * (market_data.price_relatives[:, -1] - f)
+            if (market_data.price_relatives.ndim == 1):
+                weights = self.weights + lg * (market_data.price_relatives[-1] - f)
+            else:
+                weights = self.weights + lg * (market_data.price_relatives[:, -1] - f)
             weights = weights / sum(weights)
             self.weights = weights

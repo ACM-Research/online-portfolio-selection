@@ -14,6 +14,7 @@ class CRGVisualizer(Visualizer):
         for strategy in strategies:
             plt.plot(strategy.cumulative_wealth, label=f'{strategy.__class__}'[:-2].split('.')[-1])
         plt.legend()
+        plt.set_ylim(0.9, 1.1)
         plt.ylabel('Cumulative return')
         plt.xlabel('Ticks')
         plt.title('Cumulative return of different algorithms')

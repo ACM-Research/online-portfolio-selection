@@ -7,3 +7,4 @@ from .crp_strategy import *
 from .exp_grad_strategy import *
 from .kernel_based_log_optimal_strategy import *
 from .kernel_based_semi_log_optimal_strategy import *
+from .olmar_strategy import *
