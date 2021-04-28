@@ -56,7 +56,6 @@ def main():
                    strategy.cumulative_wealth)
 
     BarCRGVisualizer.visualize('bar_out_mar20_2020.png', market.strategies, asset_names)
-    CRGVisualizer.visualize('line_out_mar20_2020.png', market.strategies)
 
 if __name__ == "__main__":
     main()
