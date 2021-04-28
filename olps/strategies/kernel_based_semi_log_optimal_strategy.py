@@ -8,7 +8,7 @@ class KernelBasedSemiLogStrategy(Strategy):
         market_data.sample_selection()
         similarity_set = market_data.similarity_set
         # if there are no windows close enough to the final window or the window size was too large, use CRP update
-        if (similarity_set is None or market_data.window >= market_data.prices.shape[1]):
+        if (similarity_set is None or market_data.window >= market_data.prices.shape[1] or market_data.similarity_set.ndim == 0):
             self.weights = self.weights
         else:
             largestSummation = None
