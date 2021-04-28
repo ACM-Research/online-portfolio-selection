@@ -29,7 +29,7 @@ class OLMARDataSource(DataSource):
         for i in range(len(self.prices)):
             #Calculate moving averages for each asset
             movingAvg = 0
-            for j in range(i - self.window, i):
+            for j in range(self.window):
                 movingAvg += self.prices[i, j]
             movingAvg = movingAvg / self.window
     
