@@ -29,7 +29,7 @@ class TradingMarket:
         # Initialize MarketDataProvider and extract timestamps
         self.data_provider = MarketDataProvider(merged_data_path)
         self.start_timestamp = self.data_provider.min_fill_time
-        self.idx = self.data_provider.data.index.get_loc(self.start_timestamp)
+        self.idx = self.data_provider.get_min_fill_idx()
         # Assign indices to assets in price vectors that are passed downstream to DataSources
         self.asset_indices = {}
         i = 0
@@ -93,7 +93,7 @@ class TradingMarket:
         '''
         Returns True if there are ticks left to iterate through.
         '''
-        return (self.idx + 1) < len(self.data_provider.data)
+        return self.idx < len(self.data_provider.data)
 
     def advance(self):
         '''
@@ -103,13 +103,13 @@ class TradingMarket:
         # If we're past the limit of our data. throw an error
         if not self.can_advance():
             raise ValueError('No data left to advance')
-        self.idx += 1
         # Get the next tick
-        next_tick = self.data_provider.data.iloc[self.idx]
+        next_ts = self.data_provider.data.index[self.idx]
+        changes = self.data_provider.get_time(next_ts)
         # Check in the interval between the current tick and the next tick
         # Check if we need to run a strategy within that interval & run it
         interval_start = self.offset
-        interval_end = next_tick.name - self.start_timestamp
+        interval_end = changes.index.max() - self.start_timestamp
         for idx, freq in enumerate(self.frequencies):
             a = (interval_start // freq) * freq
             while a < interval_end:
@@ -119,6 +119,12 @@ class TradingMarket:
                         f'===\nExecuting strategy {name} at {idx}, time {(self.timestamp() + a):.0f}, tick index {self.idx}')
                     self.execute_strategy(idx)
                 a += freq
+        # Display multi-stock tick alerts
+        if len(changes) > (len(self.asset_indices) // 2):
+            print(
+                f'!! interesting! we have a big n={len(changes)} multi-stock change at idx {self.idx}, time {changes.index[0]} !!')
         # Update the current price with the next tick
-        self.__set_current_price(next_tick['ticker'], next_tick['ask'])
+        for _, val in changes.iterrows():
+            self.__set_current_price(val['ticker'], val['ask'])
         self.offset = interval_end
+        self.idx += len(changes)
