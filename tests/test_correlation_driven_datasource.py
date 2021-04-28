@@ -20,6 +20,11 @@ class TestCorrelationDrivenDatasource:
             'fifth_prices': np.array([139.75, 1828.03, 262.14]).T,
             'sixth_prices': np.array([139.20, 1828.90, 260.37]).T,
             'very_diff_prices': np.array([69.825, 913.70, 477.036]).T,
+            'second_pricesv2': np.array([136.719, 1825.43, 262.01]).T,
+            'third_pricesv2': np.array([139.167, 1839.97, 265.054]).T,
+            'fourth_pricesv2': np.array([140.137, 1841.22, 264.874]).T,
+            'fifth_pricesv2': np.array([142.689, 1841.85, 261.996]).T,
+            'sixth_pricesv2': np.array([142.127, 1842.73, 260.227]).T,
             'ds': CorrelationDrivenDataSource(initial_prices=initial_prices, window = 2)
         }
 
@@ -90,3 +95,18 @@ class TestCorrelationDrivenDatasource:
         assert cd_datasource['ds'].similarity_set is None
         cd_datasource['ds'].sample_selection()
         assert cd_datasource['ds'].similarity_set is None
+
+    def test_sample_selection_size_over_one(self, cd_datasource: CorrelationDrivenDataSource) -> None:
+        """
+        Ensure sample selection works for instances with greater than one candidate
+        """
+        cd_datasource['ds'].add_prices(cd_datasource['second_pricesv2'])
+        cd_datasource['ds'].add_prices(cd_datasource['third_pricesv2'])
+        cd_datasource['ds'].add_prices(cd_datasource['fourth_pricesv2'])
+        cd_datasource['ds'].add_prices(cd_datasource['fifth_pricesv2'])
+        cd_datasource['ds'].add_prices(cd_datasource['sixth_pricesv2'])
+        assert cd_datasource['ds'].price_relatives.shape == (3, 5)
+        assert cd_datasource['ds'].similarity_set is None
+        cd_datasource['ds'].sample_selection()
+        assert cd_datasource['ds'].similarity_set is not None
+        assert cd_datasource['ds'].similarity_set_size == 2

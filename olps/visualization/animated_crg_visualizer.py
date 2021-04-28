@@ -13,25 +13,24 @@ class AnimatedCRGVisualizer(Visualizer):
         """
         Plots the strategies' cumulative return to the output file in a single graph by animating them
         """
-        #writer = ani.writers['ffmpeg'](fps=60, bitrate=1800)
+        # https://matplotlib.org/stable/tutorials/colors/colors.html
+        # single character notation for the colors
+        colors = 'bgrcmyk'
         fig = plt.figure()
         crs = np.array([strat.cumulative_wealth for strat in strategies])
+        strategy_names = [
+                f'{strategy.__class__}'[:-2].split('.')[-1]
+                for strategy in strategies]
+
+        plt.xlim((0, len(crs[0])))
+        plt.ylim((.9, 1.1))
+
         def animate(i: int):
             cols = crs[..., :i]
-            #print([len(col) for col in cols])
-            for col in cols:
-                plt.plot([j for j in range(len(col))], col)
-            #p = plt.plot([[j for j in range(i)]] * len(cols), cols)
-            #print(len(p))
+            # manually defining colors keeps them consistent
+            for name, col, color in zip(strategy_names, cols, colors):
+                plt.plot([j for j in range(len(col))], col, color=color, label=name)
+            plt.legend(strategy_names)
 
         animator = ani.FuncAnimation(fig, animate, frames=60)
         animator.save(outputfile)
-
-        # TODO add graph limits so it doesn't jump around
-        #for strategy in strategies:
-        #    plt.plot(strategy.cumulative_wealth, label=f'{strategy.__class__}')
-        ##plt.legend()
-        #plt.ylabel('Cumulative return')
-        #plt.xlabel('Ticks')
-        #plt.title('Cumulative return of different algorithms')
-        #plt.savefig(outputfile)
