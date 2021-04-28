@@ -7,8 +7,9 @@ class KernelBasedDataSource(DataSource):
     # A 1D array of the index set for which the market windows are similar to the final window via Euclidean distance 
     window = 1 
     similarity_set: np.array
+    threshold: int
     # modifying the constructors to include the window size
-    def __init__(self, initial_prices: np.array, window: int):
+    def __init__(self, initial_prices: np.array, window: int, threshold=0.5):
         """
         Initialize the data source with the price of all assets at the beginning of strategy execution.
         """
@@ -16,8 +17,10 @@ class KernelBasedDataSource(DataSource):
         self.price_relatives = None
         self.similarity_set = None
         self.window = window
+        self.threshold = threshold
 
     def sample_selection(self) -> None:
+        self.similarity_set = None
         if self.prices.shape[1] < self.window:
             return
         similarity_set = np.array
@@ -40,7 +43,7 @@ class KernelBasedDataSource(DataSource):
                     # now compare that window matrix to the final window matrix via euclidean distance
                     distance = ((final_window - curr_window) ** 2).sum()
                     distance = math.sqrt(distance)
-                    if distance < .5:
+                    if distance < self.threshold:
                         if similarity_set is None:
                             similarity_set = np.array(i)
                         else:
@@ -59,7 +62,7 @@ class KernelBasedDataSource(DataSource):
                     # now compare that window matrix to the final window matrix via euclidean distance
                     distance = ((final_window - curr_window) ** 2).sum()
                     distance = math.sqrt(distance)
-                    if distance < .5:
+                    if distance < self.threshold:
                         if similarity_set is None:
                             similarity_set = np.array(i)
                         else:

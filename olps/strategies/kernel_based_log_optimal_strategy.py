@@ -7,8 +7,9 @@ class KernelBasedLogStrategy(Strategy):
     def update_weights(self, market_data: KernelBasedDataSource) -> None:
         market_data.sample_selection()
         similarity_set = market_data.similarity_set
+        print(similarity_set)
         # if there are no windows close enough to the final window or the window size was too large, use CRP update
-        if (similarity_set is None or market_data.window >= market_data.prices.shape[1]):
+        if (similarity_set is None or market_data.window >= market_data.prices.shape[1] or similarity_set.ndim == 0):
             self.weights = self.weights
         else:
             largestSummation = None
@@ -28,7 +29,10 @@ class KernelBasedLogStrategy(Strategy):
                 if largestSummation is None:
                     largestSummation = sum(logBX)
                     bestPortfolio = logBX
+                    print(sum(logBX))
                 elif sum(logBX) > largestSummation:
                     largestSummation = sum(logBX)
                     bestPortfolio = logBX
+                    print(largestSummation)
+                    print(bestPortfolio)
             self.weights = bestPortfolio / sum(bestPortfolio)

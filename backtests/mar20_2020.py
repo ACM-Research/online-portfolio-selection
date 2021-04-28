@@ -20,7 +20,6 @@ import numpy as np
 from pathlib import Path
 
 # Use this as a template to backtest strategies!
-# KernelBasedLogStrategy(6), KernelBasedSemiLogStrategy(6)
 
 def main():
     info: TradingMarketStrategyInfo = {
