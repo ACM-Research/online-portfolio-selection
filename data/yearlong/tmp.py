@@ -8,7 +8,7 @@ with open('./merged/ABBV_AMC_BGS_GME_NHI_WMT_XOM.csv') as csvf:
             data.append(['time', 'ask', 'bid', 'ticker'])
             continue
         data.append([row[0], row[1], row[4], row[-1]])
-        data[-1][0] = int(datetime.strptime(data[-1][0], '%Y-%m-%d').timestamp())
+        data[-1][0] = int(datetime.strptime(data[-1][0], '%Y-%m-%d').timestamp()) * 1000000000
 print(data)
 
 with open('./merged/ABBV-AMC-BGS-GME-NHI-WMT-XOM.csv', 'w') as outcsv:

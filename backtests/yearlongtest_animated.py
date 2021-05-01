@@ -2,7 +2,12 @@ from olps.market import TradingMarket, TradingMarketStrategyInfo
 from olps.strategies import Strategy
 from olps.strategies import BAHStrategy
 from olps.strategies import BestStockStrategy
+from olps.strategies import KernelBasedLogStrategy
+from olps.strategies import OLMARStrategy
+from olps.strategies import ExpGradStrategy
 from olps.datasources import DataSource
+from olps.datasources import KernelBasedDataSource
+from olps.datasources import OLMARDataSource
 from olps.util import hour
 from olps.visualization.animated_crg_visualizer import AnimatedCRGVisualizer
 import numpy as np
@@ -14,11 +19,11 @@ from pathlib import Path
 def main():
     info: TradingMarketStrategyInfo = {
         # strategies array: pass in initialized strategies!
-        'strategies': [BAHStrategy(7), BestStockStrategy(7)],
+        'strategies': [BAHStrategy(7), BestStockStrategy(7), KernelBasedLogStrategy(7), OLMARStrategy(7), ExpGradStrategy(7)],
         # datasource factory: initialize datasources with those intial prices inside the array!
-        'datasource_factory': lambda initial_prices: [DataSource(initial_prices), DataSource(initial_prices)],
+        'datasource_factory': lambda initial_prices: [DataSource(initial_prices), DataSource(initial_prices), KernelBasedDataSource(initial_prices, window=3), OLMARDataSource(initial_prices), DataSource(initial_prices)],
         # frequencies: use the olps.util module to define frequencies!
-        'frequencies': [hour(2), hour(2)],
+        'frequencies': [hour(24), hour(24)],
     }
 
     # Define a data directory
