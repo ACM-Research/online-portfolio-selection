@@ -23,7 +23,7 @@ def main():
         # datasource factory: initialize datasources with those intial prices inside the array!
         'datasource_factory': lambda initial_prices: [DataSource(initial_prices), DataSource(initial_prices), KernelBasedDataSource(initial_prices, window=3), OLMARDataSource(initial_prices), DataSource(initial_prices)],
         # frequencies: use the olps.util module to define frequencies!
-        'frequencies': [hour(24), hour(24)],
+        'frequencies': [hour(24)] * 5,
     }
 
     # Define a data directory
