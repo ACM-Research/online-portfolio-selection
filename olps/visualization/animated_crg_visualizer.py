@@ -23,14 +23,15 @@ class AnimatedCRGVisualizer(Visualizer):
                 for strategy in strategies]
 
         plt.xlim((0, len(crs[0])))
-        plt.ylim((.9, 1.1))
 
         def animate(i: int):
-            cols = crs[..., :i]
+            cols = [row[:i] for row in crs]
+            if len(cols) != len(strategy_names):
+                return
             # manually defining colors keeps them consistent
             for name, col, color in zip(strategy_names, cols, colors):
                 plt.plot([j for j in range(len(col))], col, color=color, label=name)
             plt.legend(strategy_names)
 
-        animator = ani.FuncAnimation(fig, animate, frames=60)
+        animator = ani.FuncAnimation(fig, animate, save_count=len(crs[0]))
         animator.save(outputfile)
