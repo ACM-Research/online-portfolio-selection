@@ -1,4 +1,4 @@
-# Week 7: Pattern-Matching Strategies I
+# Week 7: Framework I        
 
 ## General agenda items
 
@@ -6,11 +6,9 @@
 
 ## Main tasks
 
-- Introduce how pattern-matching strategies work and how they generally are a combination of FTW and FTL strategies – presentation TBD
-- Discuss sample selection techniques: histogram-based, kernel-based, nearest neighbor-based, correlation-driven
-- Discuss portfolio optimization techniques: Kelly CGT, MVT
+- Discuss market and strategy execution abstractions
 - Discuss homework
 
 ## Homework
 
-- Implement update rules for pattern-matching strategies
+- Implement assigned tasks in Github Issues

@@ -1,4 +1,4 @@
-# Week 5: Follow-the-Loser Strategies I
+# Week 5: Follow-the-Loser Strategies 
 
 ## General agenda items
 
@@ -6,7 +6,7 @@
 
 ## Main tasks
 
-- Discuss FTL strategies (Anticor, passive-aggressive mean reversion, confidence-weighted mean reversion, online moving average reversion, robust median reversion) – presentation TBD
+- Discuss FTL strategies (Anticor, passive-aggressive mean reversion, confidence-weighted mean reversion, online moving average reversion, robust median reversion)
 - Discuss homework
 
 ## Homework
