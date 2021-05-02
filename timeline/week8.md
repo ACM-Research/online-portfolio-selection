@@ -1,4 +1,4 @@
-# Week 8: Pattern-Matching Strategies II
+# Week 8: Framework II
 
 ## General agenda items
 
@@ -6,8 +6,9 @@
 
 ## Main tasks
 
-- Work through implementing rules for pattern-matching strategies in repo
+- Continue work on OLPS package and abstractions
+- Discuss homework
 
 ## Homework
 
-- Continue implementing rules for FTL strategies
+- Implement assigned tasks in Github Issues

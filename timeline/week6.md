@@ -1,4 +1,4 @@
-# Week 6: Follow-the-Loser Strategies II
+# Week 6: Pattern-Matching Strategies
 
 ## General agenda items
 
@@ -6,6 +6,9 @@
 
 ## Main tasks
 
+- Introduce how pattern-matching strategies work and how they generally are a combination of FTW and FTL strategies – presentation TBD
+- Discuss sample selection techniques: histogram-based, kernel-based, nearest neighbor-based, correlation-driven
+- Discuss portfolio optimization techniques: Kelly CGT, MVT
 - Work through implementing update rules for FTL strategies in repo
 
 ## Homework
