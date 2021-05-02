@@ -4,11 +4,11 @@
 
 [![OLPS Package Tests](https://github.com/ACM-Research/online-portfolio-selection/actions/workflows/python-package.yml/badge.svg)](https://github.com/ACM-Research/online-portfolio-selection/actions/workflows/python-package.yml)
 
-<center>
+<p align="center">
 <a href="Comparison_of_Current_Online_Portfolio_Selection_Methods.pdf">
   <img src="assets/PosterPreview.png" width="70%" />
 </a>
-</center>
+</p>
 
 ---
 
@@ -63,10 +63,10 @@ conditions and are expected to react to net price changes. Our key goal within t
 determine which update scheme is the best when maximizing return and how these methods handle a
 variety of trading situations and portfolio compositions.
 
-<center>
+<p align="center">
 <img src="assets/WealthDistribution.png" width="80%" />
-<p><b>Figure 1</b>: Portfolio update for two strategies</p>
-</center>
+<br/><b>Figure 1</b>: Portfolio update for two strategies.
+</p>
 
 Careful portfolio design and data selection was critical to the success of this project. When
 selecting data, we considered two main variations:
@@ -113,10 +113,10 @@ next period's price changes. All of the selected indices from the last step are 
 potential portfolio distribution, and then one is selected. Being selective on when to update
 reduces transaction costs, and this method provides adjustable parameters for doing so.
 
-<center>
+<p align="center">
 <img src="assets/CovidCrash.png" width="70%" />
-<p><b>Figure 2</b>: The compared cumulative return of multiple strategies over an adverse trading event.</p>
-</center>
+<br/><b>Figure 2</b>: The compared cumulative return of multiple strategies over an adverse trading event.
+</p>
 
 
 ## Results
@@ -124,9 +124,9 @@ Through analyzing a wide variety of portfolios in combinations of stable vs.  vo
 short and long-term time frames, we have been able to understand the cumulative return of these
 strategies in various scenarios.
 
-<center>
+<p align="center">
 <img src="assets/Diversification.png" width="30%" />
-<p><b>Figure 3</b>: Examples of how a portfolio can be diversified.</p>
+<br/><b>Figure 3</b>: Examples of how a portfolio can be diversified.
 </center>
     
 The Benchmark and the Follow the Winner strategies tend to generate large return for short periods
